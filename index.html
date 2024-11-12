@@ -19,10 +19,12 @@
             margin: 0;
         }
 
+        /* Google Sign-In Button */
         #g_id_onload {
             margin-top: 20px;
         }
 
+        /* Weather Container */
         .weather-container {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 12px;
@@ -64,23 +66,35 @@
             margin: 4px 0;
         }
 
-        /* Profile information styling */
+        /* Profile information styling in the top-left */
         .user-info {
-            margin-top: 20px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
             color: #dfe5ec;
+            display: none;
+            align-items: center;
         }
 
         .user-info img {
             border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            margin-bottom: 10px;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
         }
 
         .user-info p {
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: bold;
+            margin: 0;
         }
+
+        /* Gmail section */
+        .user-info span {
+            font-size: 0.9em;
+            color: #fff;
+        }
+
     </style>
 </head>
 <body>
@@ -108,10 +122,13 @@
         </div>
     </div>
 
-    <!-- User Information Section -->
-    <div class="user-info" id="user-info" style="display: none;">
+    <!-- User Information Section (Top-left) -->
+    <div class="user-info" id="user-info">
         <img id="profile-pic" src="" alt="Profile Picture">
-        <p id="user-name"></p>
+        <div>
+            <p id="user-name"></p>
+            <span id="user-email"></span>
+        </div>
     </div>
 
     <!-- Load the Google API library -->
@@ -125,13 +142,15 @@
             // Extract profile information
             const profilePicUrl = data.picture;
             const userName = data.name;
+            const userEmail = data.email;
 
-            // Display profile picture and name
+            // Display profile picture, name, and email (Gmail)
             document.getElementById('profile-pic').src = profilePicUrl;
             document.getElementById('user-name').textContent = `Welcome, ${userName}!`;
+            document.getElementById('user-email').textContent = userEmail;
 
             // Show the user info section
-            document.getElementById('user-info').style.display = 'block';
+            document.getElementById('user-info').style.display = 'flex';
         }
 
         // Your existing weather-fetching code
