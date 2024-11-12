@@ -5,36 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Weather in Ulaanbaatar</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            text-align: center;
-            padding: 20px;
-        }
-        .weather-container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            display: inline-block;
-            padding: 20px;
-            margin-top: 50px;
-        }
-        .weather-icon {
-            width: 100px;
-            height: 100px;
-        }
-        .temp {
-            font-size: 2em;
-            margin: 10px 0;
-        }
-        .description {
-            font-size: 1.2em;
-            color: #555;
-        }
+        /* Your existing CSS code */
     </style>
 </head>
 <body>
+    <!-- Google Sign-In Button -->
+    <div id="g_id_onload"
+         data-client_id="849599755120-o2hgreuv0avsa298l5vnl2k092uuqkft.apps.googleusercontent.com"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin" data-type="standard"></div>
+
+    <!-- Weather Container -->
     <div class="weather-container">
         <h1>Live Weather in Ulaanbaatar</h1>
         <img id="weather-icon" src="" alt="Weather Icon" class="weather-icon">
@@ -46,14 +31,22 @@
         <div id="wind"></div>
     </div>
 
+    <!-- Load the Google API library -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
-        // Your OpenWeatherMap API key
-        const apiKey = 'cedf1b920ea093a9d0d9354a7a125095';
+        // Handle response after Google Sign-In
+        function handleCredentialResponse(response) {
+            const data = JSON.parse(atob(response.credential.split('.')[1]));
+            console.log("User:", data);
 
-        // OpenWeatherMap API URL for Ulaanbaatar
+            // Display user information or proceed with additional functionality
+            alert(`Hello, ${data.name}! You are signed in with Google.`);
+        }
+
+        // Your existing weather-fetching code
+        const apiKey = 'cedf1b920ea093a9d0d9354a7a125095';
         const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Ulaanbaatar&appid=${apiKey}&units=metric`;
 
-        // Function to fetch weather data
         async function fetchWeather() {
             try {
                 const response = await fetch(apiUrl);
@@ -66,8 +59,7 @@
                 document.getElementById('pressure').textContent = `Pressure: ${data.main.pressure} hPa`;
                 document.getElementById('humidity').textContent = `Humidity: ${data.main.humidity}%`;
                 document.getElementById('wind').textContent = `Wind Speed: ${data.wind.speed} m/s`;
-                
-                // Set weather icon
+
                 const iconCode = data.weather[0].icon;
                 document.getElementById('weather-icon').src = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
@@ -77,7 +69,6 @@
             }
         }
 
-        // Fetch weather when the page loads
         fetchWeather();
     </script>
 </body>
