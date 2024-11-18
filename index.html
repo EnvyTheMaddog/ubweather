@@ -3,48 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
+    <title>Live Weather in Ulaanbaatar</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Weather App</h1>
+    <!-- Google Sign-In Button -->
+    <div id="g_id_onload"
+         data-client_id="849599755120-o2hgreuv0avsa298l5vnl2k092uuqkft.apps.googleusercontent.com"  <!-- Your Google Client ID -->
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin" data-type="standard"></div>
 
-    <!-- Sign Up Form -->
-    <div id="signup-form" class="form-container">
-        <h2>Sign Up</h2>
-        <form id="signup" method="POST">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Sign Up</button>
-        </form>
+    <!-- Weather Container -->
+    <div class="weather-container">
+        <h1>Live Weather in Ulaanbaatar</h1>
+        <img id="weather-icon" src="" alt="Weather Icon" class="weather-icon">
+        <div id="temperature" class="temp">Loading...</div>
+        <div id="description" class="description">Please wait...</div>
+        <div class="details">
+            <div id="feels-like"></div>
+            <div id="pressure"></div>
+            <div id="humidity"></div>
+            <div id="wind"></div>
+        </div>
     </div>
 
-    <!-- Login Form -->
-    <div id="login-form" class="form-container">
-        <h2>Login</h2>
-        <form id="login" method="POST">
-            <label for="email-login">Email</label>
-            <input type="email" id="email-login" name="email" required>
-            <label for="password-login">Password</label>
-            <input type="password" id="password-login" name="password" required>
-            <button type="submit">Login</button>
-        </form>
+    <!-- User Information Section (Top-left) -->
+    <div class="user-info" id="user-info">
+        <img id="profile-pic" src="" alt="Profile Picture">
+        <div>
+            <p id="user-name"></p>
+            <span id="user-email"></span>
+        </div>
     </div>
 
-    <!-- Google Login Button -->
-    <div id="google-login">
-        <button onclick="window.location.href='/auth/google'">Login with Google</button>
-    </div>
-
-    <!-- Weather Display (After login) -->
-    <div id="weather-container" style="display:none;">
-        <h2>Weather Information</h2>
-        <div id="weather"></div>
-        <button id="logout-btn">Logout</button>
-    </div>
-
+    <!-- Load the Google API library -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="script.js"></script>
 </body>
 </html>

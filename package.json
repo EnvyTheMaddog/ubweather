@@ -1,17 +1,14 @@
 {
-  "name": "weather-app",
+  "name": "lab-2",
   "version": "1.0.0",
-  "description": "A weather app with login and signup functionality",
+  "description": "Weather app with Google Login",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "mysql2": "^2.2.5",
-    "passport": "^0.6.0",
-    "passport-google-oauth20": "^2.0.0",
-    "session": "^1.17.2",
-    "fetch": "^2.6.0"
-  },
-  "author": "Your
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.3.3"
+  }
+}
