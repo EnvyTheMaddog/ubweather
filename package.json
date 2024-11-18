@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "lab-2",
   "version": "1.0.0",
   "description": "Weather app with Google Sign-In and database login",
@@ -11,5 +12,11 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mysql2": "^3.3.0"
+=======
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.21.1",
+    "mysql": "^2.18.1"
+>>>>>>> e00e5c527f501d291ad9a60ec0ddf8369baed75d
   }
 }
