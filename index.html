@@ -5,154 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Weather in Ulaanbaatar</title>
     <style>
-        /* Global styles */
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #4b79a1, #283e51);
-            color: #f9f9f9;
-            text-align: center;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        /* Google Sign-In Button */
-        #g_id_onload {
-            margin-top: 20px;
-        }
-
-        /* Weather Container */
-        .weather-container {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 20px;
-            width: 100%;
-            max-width: 400px;
-            margin-top: 50px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-        }
-
-        .weather-container h1 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-
-        .weather-icon {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 10px;
-        }
-
-        .temp {
-            font-size: 2em;
-            font-weight: bold;
-        }
-
-        .description {
-            font-size: 1.2em;
-            color: #b3c0d1;
-            text-transform: capitalize;
-        }
-
-        .details {
-            margin-top: 10px;
-            color: #dfe5ec;
-            font-size: 0.9em;
-        }
-
-        .details div {
-            margin: 4px 0;
-        }
-
-        /* Profile information styling in the top-left */
-        .user-info {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            color: #dfe5ec;
-            display: none;
-            align-items: center;
-            padding: 10px;
-            border-radius: 50px;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 10;
-        }
-
-        .user-info img {
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-        }
-
-        .user-info p {
-            font-size: 1.1em;
-            font-weight: bold;
-            margin: 0;
-        }
-
-        .user-info span {
-            font-size: 0.9em;
-            color: #fff;
-        }
-
-        /* Responsive design for mobile */
-        @media (max-width: 600px) {
-            .weather-container {
-                width: 90%;
-                margin-top: 30px;
-                padding: 15px;
-            }
-
-            .weather-container h1 {
-                font-size: 1.2em;
-            }
-
-            .temp {
-                font-size: 1.8em;
-            }
-
-            .description {
-                font-size: 1em;
-            }
-
-            .details div {
-                font-size: 0.8em;
-            }
-
-            .user-info {
-                top: 10px;
-                left: 10px;
-                padding: 8px;
-            }
-
-            .user-info img {
-                width: 40px;
-                height: 40px;
-            }
-
-            .user-info p {
-                font-size: 1em;
-            }
-
-            .user-info span {
-                font-size: 0.8em;
-            }
-        }
-
-        /* Add smooth transition for profile info visibility */
-        .user-info {
-            transition: all 0.3s ease;
-        }
+        /* Your existing styles */
     </style>
 </head>
 <body>
     <!-- Google Sign-In Button -->
     <div id="g_id_onload"
-         data-client_id="849599755120-o2hgreuv0avsa298l5vnl2k092uuqkft.apps.googleusercontent.com"
+         data-client_id="YOUR_GOOGLE_CLIENT_ID"
          data-context="signin"
          data-ux_mode="popup"
          data-callback="handleCredentialResponse"
@@ -160,27 +19,24 @@
     </div>
     <div class="g_id_signin" data-type="standard"></div>
 
-    <!-- Weather Container -->
-    <div class="weather-container">
-        <h1>Live Weather in Ulaanbaatar</h1>
-        <img id="weather-icon" src="" alt="Weather Icon" class="weather-icon">
-        <div id="temperature" class="temp">Loading...</div>
-        <div id="description" class="description">Please wait...</div>
-        <div class="details">
-            <div id="feels-like"></div>
-            <div id="pressure"></div>
-            <div id="humidity"></div>
-            <div id="wind"></div>
-        </div>
+    <!-- Sign-Up Form -->
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signup-form">
+            <input type="email" id="email" placeholder="Enter your email" required><br><br>
+            <input type="password" id="password" placeholder="Enter your password" required><br><br>
+            <button type="submit">Sign Up</button>
+        </form>
     </div>
 
-    <!-- User Information Section (Top-left) -->
+    <!-- Weather Container -->
+    <div class="weather-container">
+        <!-- Weather UI (same as before) -->
+    </div>
+
+    <!-- User Information Section -->
     <div class="user-info" id="user-info">
-        <img id="profile-pic" src="" alt="Profile Picture">
-        <div>
-            <p id="user-name"></p>
-            <span id="user-email"></span>
-        </div>
+        <!-- User profile info (same as before) -->
     </div>
 
     <!-- Load the Google API library -->
@@ -191,22 +47,40 @@
             const data = JSON.parse(atob(response.credential.split('.')[1]));
             console.log("User:", data);
 
-            // Extract profile information
             const profilePicUrl = data.picture;
             const userName = data.name;
             const userEmail = data.email;
 
-            // Display profile picture, name, and email (Gmail)
             document.getElementById('profile-pic').src = profilePicUrl;
             document.getElementById('user-name').textContent = `Welcome, ${userName}!`;
             document.getElementById('user-email').textContent = userEmail;
 
-            // Show the user info section
             document.getElementById('user-info').style.display = 'flex';
         }
 
+        // Sign-Up Form Handler
+        document.getElementById('signup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Send a POST request to the backend to sign up the user
+            const response = await fetch('/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (response.ok) {
+                alert('User signed up successfully');
+            } else {
+                alert('Error signing up');
+            }
+        });
+
         // Your existing weather-fetching code
-        const apiKey = 'cedf1b920ea093a9d0d9354a7a125095';
+        const apiKey = 'YOUR_OPENWEATHER_API_KEY';
         const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Ulaanbaatar&appid=${apiKey}&units=metric`;
 
         async function fetchWeather() {
@@ -214,7 +88,6 @@
                 const response = await fetch(apiUrl);
                 const data = await response.json();
 
-                // Update HTML with weather data
                 document.getElementById('temperature').textContent = `Temperature: ${data.main.temp} °C`;
                 document.getElementById('description').textContent = data.weather[0].description;
                 document.getElementById('feels-like').textContent = `Feels Like: ${data.main.feels_like} °C`;
