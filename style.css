@@ -1,12 +1,27 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f4f4f4;
     text-align: center;
-    margin-top: 50px;
+    padding: 50px;
 }
 
-#weather {
-    font-size: 24px;
-    font-weight: bold;
+h1 {
     color: #333;
+}
+
+.form-container {
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
 }

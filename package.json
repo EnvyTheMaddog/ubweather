@@ -1,14 +1,17 @@
 {
-  "name": "lab-2",
+  "name": "weather-app",
   "version": "1.0.0",
-  "description": "Weather App with Node.js and OpenWeatherMap API",
+  "description": "A weather app with login and signup functionality",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mysql2": "^2.2.5",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "session": "^1.17.2",
+    "fetch": "^2.6.0"
   },
-  "author": "Your Name",
-  "license": "ISC"
-}
+  "author": "Your
