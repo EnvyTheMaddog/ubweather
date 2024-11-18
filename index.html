@@ -19,11 +19,6 @@
             margin: 0;
         }
 
-        /* Google Sign-In Button */
-        #g_id_onload {
-            margin-top: 20px;
-        }
-
         /* Weather Container */
         .weather-container {
             background: rgba(255, 255, 255, 0.1);
@@ -177,7 +172,7 @@
 <body>
     <!-- Google Sign-In Button -->
     <div id="g_id_onload"
-         data-client_id="849599755120-o2hgreuv0avsa298l5vnl2k092uuqkft.apps.googleusercontent.com"
+         data-client_id="YOUR_GOOGLE_CLIENT_ID"
          data-context="signin"
          data-ux_mode="popup"
          data-callback="handleCredentialResponse"
@@ -186,7 +181,7 @@
     <div class="g_id_signin" data-type="standard"></div>
 
     <!-- Login / Sign Up Section -->
-    <div class="form-container" id="login-form">
+    <div class="form-container" id="login-form" style="display: block;">
         <h2>Log In</h2>
         <input type="email" id="login-email" placeholder="Email" required>
         <input type="password" id="login-password" placeholder="Password" required>
