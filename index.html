@@ -67,7 +67,37 @@
             margin: 4px 0;
         }
 
-        /* Profile information styling in the top-left */
+        /* Form Styles */
+        .form-container {
+            width: 300px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none; /* Hidden by default */
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #283e51;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+
+        /* Profile info */
         .user-info {
             position: fixed;
             top: 20px;
@@ -142,11 +172,6 @@
                 font-size: 0.8em;
             }
         }
-
-        /* Add smooth transition for profile info visibility */
-        .user-info {
-            transition: all 0.3s ease;
-        }
     </style>
 </head>
 <body>
@@ -159,6 +184,23 @@
          data-auto_prompt="false">
     </div>
     <div class="g_id_signin" data-type="standard"></div>
+
+    <!-- Login / Sign Up Section -->
+    <div class="form-container" id="login-form">
+        <h2>Log In</h2>
+        <input type="email" id="login-email" placeholder="Email" required>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <button onclick="handleLogin()">Log In</button>
+        <p>Don't have an account? <a href="#" onclick="showSignUpForm()">Sign Up</a></p>
+    </div>
+
+    <div class="form-container" id="signup-form">
+        <h2>Sign Up</h2>
+        <input type="email" id="signup-email" placeholder="Email" required>
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <button onclick="handleSignUp()">Sign Up</button>
+        <p>Already have an account? <a href="#" onclick="showLoginForm()">Log In</a></p>
+    </div>
 
     <!-- Weather Container -->
     <div class="weather-container">
@@ -174,7 +216,7 @@
         </div>
     </div>
 
-    <!-- User Information Section (Top-left) -->
+    <!-- User Information Section -->
     <div class="user-info" id="user-info">
         <img id="profile-pic" src="" alt="Profile Picture">
         <div>
@@ -186,35 +228,51 @@
     <!-- Load the Google API library -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
-        // Handle response after Google Sign-In
+        // Google Sign-In response handling
         function handleCredentialResponse(response) {
             const data = JSON.parse(atob(response.credential.split('.')[1]));
-            console.log("User:", data);
-
-            // Extract profile information
-            const profilePicUrl = data.picture;
-            const userName = data.name;
-            const userEmail = data.email;
-
-            // Display profile picture, name, and email (Gmail)
-            document.getElementById('profile-pic').src = profilePicUrl;
-            document.getElementById('user-name').textContent = `Welcome, ${userName}!`;
-            document.getElementById('user-email').textContent = userEmail;
-
-            // Show the user info section
+            document.getElementById('user-name').textContent = `Welcome, ${data.name}!`;
+            document.getElementById('user-email').textContent = data.email;
+            document.getElementById('profile-pic').src = data.picture;
             document.getElementById('user-info').style.display = 'flex';
         }
 
-        // Your existing weather-fetching code
-        const apiKey = 'cedf1b920ea093a9d0d9354a7a125095';
-        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Ulaanbaatar&appid=${apiKey}&units=metric`;
+        // Show the login form
+        function showLoginForm() {
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        }
 
+        // Show the sign-up form
+        function showSignUpForm() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+        }
+
+        // Handle email login
+        function handleLogin() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            console.log('Logging in with:', email, password);
+            // Implement login logic (e.g., check against a server or database)
+        }
+
+        // Handle email sign-up
+        function handleSignUp() {
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            console.log('Signing up with:', email, password);
+            // Implement sign-up logic (e.g., create account on the server)
+        }
+
+        // Weather API integration (as per your existing code)
         async function fetchWeather() {
+            const apiKey = 'cedf1b920ea093a9d0d9354a7a125095';
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Ulaanbaatar&appid=${apiKey}&units=metric`;
+
             try {
                 const response = await fetch(apiUrl);
                 const data = await response.json();
-
-                // Update HTML with weather data
                 document.getElementById('temperature').textContent = `Temperature: ${data.main.temp} °C`;
                 document.getElementById('description').textContent = data.weather[0].description;
                 document.getElementById('feels-like').textContent = `Feels Like: ${data.main.feels_like} °C`;
@@ -224,7 +282,6 @@
 
                 const iconCode = data.weather[0].icon;
                 document.getElementById('weather-icon').src = `https://openweathermap.org/img/wn/${iconCode}.png`;
-
             } catch (error) {
                 console.error("Error fetching weather data:", error);
                 document.getElementById('temperature').textContent = "Failed to load data.";
